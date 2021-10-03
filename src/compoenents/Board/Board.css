@@ -1,0 +1,21 @@
+.Board {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    background-color: #ffffff;
+    grid-gap : 8px;
+    padding: 16px;
+}
+.Board__category {
+    background-color: #f4f5f7;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px;
+}
+.Board__categoryName {
+    font-weight: bold;
+    border-bottom: 2px solid ;
+    margin: 16px 0;
+    padding-bottom: 8px;
+    font-size: 1.1rem;
+}

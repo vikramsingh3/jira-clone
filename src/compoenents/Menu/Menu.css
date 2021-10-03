@@ -1,0 +1,17 @@
+.Menu {
+    background-color: #0747a6;
+    padding: 16px;
+    position: sticky;
+    top: 0;
+}
+.Menu__filters {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    margin: 8px 0;
+}
+.Menu__input {
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+}

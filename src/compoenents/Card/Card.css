@@ -1,0 +1,14 @@
+.Card {
+    background-color: #ffffff;
+    box-shadow: 0 0 1px 0 rgb(9 30 66 / 31%), 0 2px 4px -1px rgb(9 30 66 / 25%);
+    border-radius: 2px;
+    padding: 8px;
+    cursor: pointer;
+}
+.Card:hover {
+    background-color: #ebecf0;
+}
+
+.Card__title {
+    font-weight: bold;
+}
