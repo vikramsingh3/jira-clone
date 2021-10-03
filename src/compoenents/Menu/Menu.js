@@ -57,7 +57,11 @@ export default function Menu({
           id="type"
           options={uniqueTicketTitle}
           renderInput={(params) => (
-            <TextField {...params} label="Select User" variant="filled" />
+            <TextField
+              {...params}
+              label="Search tickets by title"
+              variant="filled"
+            />
           )}
           value={defaultValues.title}
           onChange={(event, newValue) => {
