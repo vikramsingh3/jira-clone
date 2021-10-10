@@ -1,0 +1,9 @@
+.TicketModal__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 16px;
+}
+
+.TicketModal__content > div:nth-child(3) , .TicketModal__content > div:nth-child(6) {
+    grid-column: 1/3;
+}

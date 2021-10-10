@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Checkbox, TextField, Autocomplete, Button } from "@mui/material";
 import { CheckBoxOutlineBlank, CheckBox } from "@mui/icons-material";
+import TicketModal from "../TicketModal/TicketModal";
 import { type, tickets } from "../../data/categories";
 import "./Menu.css";
 const icon = <CheckBoxOutlineBlank fontSize="small" />;
@@ -18,6 +19,7 @@ export default function Menu({
     epics: [],
     types: [],
   });
+  const [modalOpen, setModalOpen] = useState(false);
   const uniqueTicketTitle = [
     ...tickets.reduce((acc, item) => {
       acc.add(item.title);
@@ -47,6 +49,9 @@ export default function Menu({
       epics: [],
       types: [],
     });
+  };
+  const createNewTicketHandler = () => {
+    setModalOpen(true);
   };
   return (
     <div className="Menu">
@@ -79,7 +84,11 @@ export default function Menu({
         >
           Clear All Filters
         </Button>
-        <Button variant="contained" size="small">
+        <Button
+          variant="contained"
+          size="small"
+          onClick={createNewTicketHandler}
+        >
           Create new ticket
         </Button>
       </div>
@@ -177,6 +186,7 @@ export default function Menu({
           }}
         />
       </div>
+      <TicketModal modalStateHandler={setModalOpen} modalState={modalOpen} />
     </div>
   );
 }

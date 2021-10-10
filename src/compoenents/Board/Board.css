@@ -4,6 +4,7 @@
     background-color: #ffffff;
     grid-gap : 8px;
     padding: 16px;
+    overflow: auto;
 }
 .Board__category {
     background-color: #f4f5f7;
