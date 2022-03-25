@@ -14,7 +14,7 @@ import {
 import "./TicketModal.css";
 
 const TicketModal = ({ modalStateHandler, modalState }) => {
-  const [formData, setFormData] = useState({});
+  // const [formData, setFormData] = useState({});
   return (
     <div className="ModalTicket">
       <Dialog
