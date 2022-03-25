@@ -11,7 +11,6 @@ import {
   TextField,
   Button,
 } from "@mui/material";
-import "./TicketModal.css";
 
 const TicketModal = ({ modalStateHandler, modalState }) => {
   // const [formData, setFormData] = useState({});

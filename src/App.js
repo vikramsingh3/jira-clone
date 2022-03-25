@@ -1,8 +1,9 @@
-import "./App.css";
 import { useState } from "react";
-import Board from "./compoenents/Board/Board";
-import Menu from "./compoenents/Menu/Menu";
+import Board from "./compoenents/Board";
+import Menu from "./compoenents/Menu";
 import { tickets } from "./data/categories";
+import { Box } from "@mui/material";
+import Header from "./compoenents/Header";
 
 function App() {
   const [toFilterTitle, setToFilterTitle] = useState([]);
@@ -33,7 +34,8 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <Box sx={{ display: "flex" }}>
+      <Header />
       <Menu
         filterTitle={setToFilterTitle}
         filterUsers={setToFilterUsers}
@@ -41,7 +43,7 @@ function App() {
         filterTypes={setToFilterTypes}
       />
       <Board tickets={filteredTickets} />
-    </div>
+    </Box>
   );
 }
 
