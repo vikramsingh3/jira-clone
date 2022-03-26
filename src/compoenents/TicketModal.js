@@ -18,8 +18,32 @@ import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 import baseUrl from "../data/baseUrl";
 import { status, type } from "../data/categories";
+import { useQueryClient, useMutation } from "react-query";
+
+const postTicket = (formValues) => {
+  return axios.post(baseUrl + "tickets.json", formValues);
+};
+
+const putTicket = ({ id, formVal }) => {
+  return axios.put(baseUrl + "tickets/" + id + ".json", formVal);
+};
 
 const TicketModal = ({ isModalOpen, setModalOpen, initialValues }) => {
+  // React Query POST and PUT for automatic refetching
+  const queryClient = useQueryClient();
+  const { mutate: addTicket } = useMutation((formVal) => postTicket(formVal), {
+    onSuccess: () => {
+      queryClient.invalidateQueries("tickets");
+      setModalOpen(false);
+    },
+  });
+  const { mutate: updateTicket } = useMutation((data) => putTicket(data), {
+    onSuccess: () => {
+      queryClient.invalidateQueries("tickets");
+      setModalOpen(false);
+    },
+  });
+
   const [formValues, setFormValues] = useState(
     initialValues || {
       title: "",
@@ -38,6 +62,7 @@ const TicketModal = ({ isModalOpen, setModalOpen, initialValues }) => {
     status: "",
     assignedTo: "",
   });
+
   const onChangeHandler = (event) => {
     setFormValues((prevFormValues) => {
       return { ...prevFormValues, [event.target.name]: event.target.value };
@@ -49,6 +74,7 @@ const TicketModal = ({ isModalOpen, setModalOpen, initialValues }) => {
       };
     });
   };
+
   const setErrorsOnSubmit = () => {
     const errorBeforeSubmit = {};
     if (!formValues.title) errorBeforeSubmit.title = "This field is required";
@@ -64,6 +90,7 @@ const TicketModal = ({ isModalOpen, setModalOpen, initialValues }) => {
       return { ...prevErrors, ...errorBeforeSubmit };
     });
   };
+
   const onSubmitHandler = async () => {
     if (
       formValues.title &&
@@ -73,17 +100,9 @@ const TicketModal = ({ isModalOpen, setModalOpen, initialValues }) => {
       formValues.status &&
       formValues.assignedTo
     ) {
-      try {
-        initialValues
-          ? await axios.put(
-              baseUrl + "tickets/" + initialValues.id + ".json",
-              formValues
-            )
-          : await axios.post(baseUrl + "tickets.json", formValues);
-        setModalOpen(false);
-      } catch (err) {
-        console.log(err);
-      }
+      initialValues
+        ? updateTicket({ id: initialValues.id, formVal: formValues })
+        : addTicket(formValues);
     } else {
       setErrorsOnSubmit();
     }
