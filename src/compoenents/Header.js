@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { AppBar, Container, Toolbar, Typography, Button } from "@mui/material";
 import TicketModal from "./TicketModal";
+import JiraLiteLogo from "../assets/jira-lite.png";
 
 const Header = () => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -14,6 +15,14 @@ const Header = () => {
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          <img
+            src={JiraLiteLogo}
+            alt="Jira Lite"
+            height={30}
+            style={{
+              marginRight: "10px",
+            }}
+          />
           <Typography
             variant="h6"
             noWrap
