@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { AppBar, Container, Toolbar, Typography, Button } from "@mui/material";
+import TicketModal from "./TicketModal";
 
 const Header = () => {
+  const [isModalOpen, setModalOpen] = useState(false);
+  const createNewTicketHandler = () => {
+    setModalOpen(true);
+  };
   return (
     <AppBar
       position="fixed"
@@ -25,11 +30,13 @@ const Header = () => {
             color="primary"
             disableElevation
             sx={{ flexGrow: 0 }}
+            onClick={createNewTicketHandler}
           >
             Create New Ticket
           </Button>
         </Toolbar>
       </Container>
+      {isModalOpen && <TicketModal isModalOpen setModalOpen={setModalOpen} />}
     </AppBar>
   );
 };

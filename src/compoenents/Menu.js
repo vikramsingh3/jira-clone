@@ -8,12 +8,13 @@ import {
   Toolbar,
 } from "@mui/material";
 import { CheckBoxOutlineBlank, CheckBox } from "@mui/icons-material";
-import { type, tickets } from "../data/categories";
+import { type } from "../data/categories";
 
 const icon = <CheckBoxOutlineBlank fontSize="small" />;
 const checkedIcon = <CheckBox fontSize="small" />;
 
 export default function Menu({
+  tickets,
   filterTitle,
   filterUsers,
   filterEpics,
