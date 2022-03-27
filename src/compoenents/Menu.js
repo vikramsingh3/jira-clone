@@ -90,7 +90,6 @@ export default function Menu({
             variant="outlined"
           />
         )}
-        value={defaultValues.title}
         onChange={(event, newValue) => {
           setDefaultValues((prevDefaults) => {
             return { ...prevDefaults, title: newValue };

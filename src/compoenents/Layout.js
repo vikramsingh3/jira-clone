@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Board from "./Board";
 import Menu from "./Menu";
 import { Box } from "@mui/material";
@@ -43,21 +43,6 @@ const Layout = () => {
       toFilterTypes.includes(ticket.type)
     );
   }
-  //   const fetchTickets = async () => {
-  //     try {
-  //       const response = await axios.get(baseUrl + "tickets.json");
-  //       console.log(response);
-  //       if (response.data) {
-  //         setTickets(response.data);
-  //       }
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-
-  //   useEffect(() => {
-  //     fetchTickets();
-  //   }, []);
 
   return (
     <Box sx={{ display: "flex" }}>

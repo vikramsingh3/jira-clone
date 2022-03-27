@@ -28,16 +28,29 @@ const putTicket = ({ id, formVal }) => {
   return axios.put(baseUrl + "tickets/" + id + ".json", formVal);
 };
 
+const deleteTicket = ({ id }) => {
+  return axios.delete(baseUrl + "tickets/" + id + ".json");
+};
+
 const TicketModal = ({ isModalOpen, setModalOpen, initialValues }) => {
   // React Query POST and PUT for automatic refetching
   const queryClient = useQueryClient();
-  const { mutate: addTicket } = useMutation((formVal) => postTicket(formVal), {
+  const { mutate: addMutation } = useMutation(
+    (formVal) => postTicket(formVal),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("tickets");
+        setModalOpen(false);
+      },
+    }
+  );
+  const { mutate: updateMutation } = useMutation((data) => putTicket(data), {
     onSuccess: () => {
       queryClient.invalidateQueries("tickets");
       setModalOpen(false);
     },
   });
-  const { mutate: updateTicket } = useMutation((data) => putTicket(data), {
+  const { mutate: deleteMutation } = useMutation((id) => deleteTicket(id), {
     onSuccess: () => {
       queryClient.invalidateQueries("tickets");
       setModalOpen(false);
@@ -91,7 +104,7 @@ const TicketModal = ({ isModalOpen, setModalOpen, initialValues }) => {
     });
   };
 
-  const onSubmitHandler = async () => {
+  const onSubmitHandler = () => {
     if (
       formValues.title &&
       formValues.description &&
@@ -101,11 +114,15 @@ const TicketModal = ({ isModalOpen, setModalOpen, initialValues }) => {
       formValues.assignedTo
     ) {
       initialValues
-        ? updateTicket({ id: initialValues.id, formVal: formValues })
-        : addTicket(formValues);
+        ? updateMutation({ id: initialValues.id, formVal: formValues })
+        : addMutation(formValues);
     } else {
       setErrorsOnSubmit();
     }
+  };
+
+  const onDeleteHandler = () => {
+    deleteMutation({ id: initialValues.id });
   };
   return (
     <Dialog
@@ -226,6 +243,16 @@ const TicketModal = ({ isModalOpen, setModalOpen, initialValues }) => {
         </Grid>
       </DialogContent>
       <DialogActions>
+        {initialValues && (
+          <Button
+            variant="text"
+            color="error"
+            sx={{ marginRight: "20px" }}
+            onClick={onDeleteHandler}
+          >
+            Delete
+          </Button>
+        )}
         <Button variant="text" onClick={onSubmitHandler}>
           {initialValues ? "Save" : "Create"}
         </Button>
